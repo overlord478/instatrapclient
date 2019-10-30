@@ -3,6 +3,7 @@ import axios from'axios';
 import uuid from 'uuid'
 import Image from './Image'
 
+
 const Upload = () => {
 
     const [file,setFile] = useState(null);
@@ -43,7 +44,7 @@ const Upload = () => {
                     let  imgFlag = 'data:'+response.data[j].image.contentType+';base64,'
                     imgValue = imgFlag+imgValue;
                     setImages(prevState=>[...prevState,{
-                        id:prevState.length,
+                        id:response.data[j]._id,
                         value:imgValue
                     }]);
                 }
@@ -60,7 +61,7 @@ const Upload = () => {
                     let  imgFlag = 'data:'+response.data.image.contentType+';base64,'
                     imgValue = imgFlag+imgValue;
                     setImages(prevState=>[...prevState,{
-                        id:prevState.length,
+                        id:response.data._id,
                         value:imgValue
                     }]);
 
@@ -107,8 +108,8 @@ const Upload = () => {
                     <button type="submit" className="btn btn-primary">Upload</button>
                 </div>
             </form>
-
-            <Image images={images}/>
+            <Image  images={images}/>
+            
 
         </Fragment>
     )

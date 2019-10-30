@@ -1,14 +1,14 @@
 import React,{Fragment} from 'react'
 import './Image.css';
+import ImageItem from './ImageItem'
 
-const Image = ({images}) => {
 
-    return (
+const Image = (props) => {
+    
+    const {images} = props;
+return (
         <Fragment>
-            <div className="card-columns container">
-            {images.map(image => 
-    <img className="card-img-top" key={image.id} src={image.value} alt="a good pixels" />)}
-            </div>
+            {images.map(image => <ImageItem  key={image.id} image={image}  />)}
         </Fragment>
     )
 }
