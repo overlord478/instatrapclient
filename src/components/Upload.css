@@ -1,0 +1,13 @@
+.file {
+    margin-top: 1rem;
+    display: flex;
+}
+.file input {
+    margin-left: 0.75rem;
+    margin-right:0.75rem;
+    size: 5rem;
+}
+.file button {
+    margin-left: auto;
+    margin-right: auto;
+}

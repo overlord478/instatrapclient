@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import axios from 'axios';
+import UserContext from '../Context/UserContext';
 
 const Register = (props) => {
 
@@ -10,12 +11,17 @@ const Register = (props) => {
         password:""
     });
 
+    const usercontext = useContext(UserContext);
+    const {getUserName} = usercontext;
+
     const onchange = e => setUser({...user,[e.target.name]:e.target.value});
 
     const onsubmit = async e => {
         e.preventDefault();
+        
         const response = await axios.post('http://localhost:5000/register',user)
         localStorage.setItem('x-auth-key',response.data.token)
+        getUserName(user.email);
         props.history.push('/image')
     }
 

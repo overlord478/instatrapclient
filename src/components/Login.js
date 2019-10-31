@@ -1,12 +1,17 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import axios from 'axios';
+import UserContext from '../Context/UserContext'
 
 const Login = (props) => {
 
     const [login,setLogin] = useState({
         email:"",
         password:""
-    })
+    });
+
+    const usercontext = useContext(UserContext);
+
+    const {getUserName} = usercontext;
 
     const onchange = (e) => {
         setLogin({...login,[e.target.name]:e.target.value})
@@ -14,6 +19,7 @@ const Login = (props) => {
 
     const onsubmit = async (e)=>{
         e.preventDefault();
+        getUserName(login.email);
         const response = await axios.post("http://localhost:5000/login",login)
         localStorage.setItem('x-auth-key',response.data.token)
         props.history.push('/image')

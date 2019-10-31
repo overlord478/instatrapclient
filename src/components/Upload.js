@@ -1,8 +1,9 @@
-import React,{useState,Fragment,useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from'axios';
 import uuid from 'uuid'
 import Image from './Image'
-
+import Spinner from './spinner'
+import './Upload.css'
 
 const Upload = () => {
 
@@ -80,13 +81,13 @@ const Upload = () => {
         
         
         try {
-           const response = await axios.post('http://localhost:5000/image',image,{
+            await axios.post('http://localhost:5000/image',image,{
                headers:{
                    'Content-Type':'multipart/form-data',
                    'x-auth-token':localStorage.getItem('x-auth-key')
                }
            });
-           console.log(response.data);
+           
            setFile(null);
         } catch (error) {
             console.error(error);
@@ -97,22 +98,26 @@ const Upload = () => {
         setFile(e.target.files[0]);
         
     }
-    
-
+    if(images === "") {
+        return(<Spinner/>)
+    }
+    else {
     return (
-        <Fragment>
+        <div className="container">
+        <i className="fab fa-instagram"></i> <span>InstaTrap</span>
             <form onSubmit={onsubmit}>
-                <div className="form-group">
+                <div className="form-group file">
                     <label htmlFor="Upload">Upload</label>
                     <input type="file" className="form-control-file" name="image" onChange={onchange}/>
-                    <button type="submit" className="btn btn-primary">Upload</button>
+                    <button type="submit" className="btn btn-primary btn-sm">Upload</button>
                 </div>
             </form>
             <Image  images={images}/>
             
-
-        </Fragment>
+        </div>
+        
     )
+    }
 }
 
 export default Upload
